@@ -1,481 +1,638 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abdelhakim boutaka — Web Developer</title>
-<link rel="icon" type="image/png" href="IMG-20250406-WA0041.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abdelhakim boutaka — Web Developer</title>
+    <link rel="icon" type="image/png" href="IMG-20250406-WA0041.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-  :root {
-    --bg: #0a0a0a;
-    --card: #111111;
-    --card-hover: #161616;
-    --border: rgba(255,255,255,0.07);
-    --text: #f0f0f0;
-    --muted: #666;
-    --green: #22c55e;
-    --accent: #e8ff00;
-    --radius: 18px;
-  }
+      :root {
+        --bg: #0a0a0a;
+        --card: #111111;
+        --card-hover: #161616;
+        --border: rgba(255, 255, 255, 0.07);
+        --text: #f0f0f0;
+        --muted: #666;
+        --green: #22c55e;
+        --accent: #e8ff00;
+        --radius: 18px;
+      }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding: 24px 16px 60px;
-  }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Syne", sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 24px 16px 60px;
+      }
 
-  .container {
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+      .container {
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
 
-  /* ---- Card base ---- */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    transition: background 0.2s, transform 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .card:hover { background: var(--card-hover); }
-  .card.link { cursor: pointer; text-decoration: none; color: inherit; display: block; }
-  .card.link:hover { transform: translateY(-2px); }
+      /* ---- Card base ---- */
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+        position: relative;
+        overflow: hidden;
+      }
+      .card:hover {
+        background: var(--card-hover);
+      }
+      .card.link {
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      .card.link:hover {
+        transform: translateY(-2px);
+      }
 
-  /* ---- External link arrow ---- */
-  .arrow {
-    position: absolute;
-    top: 18px; right: 18px;
-    width: 28px; height: 28px;
-    background: rgba(255,255,255,0.07);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px;
-    color: var(--muted);
-    transition: background 0.2s, color 0.2s;
-  }
-  .card.link:hover .arrow { background: var(--accent); color: #000; }
+      /* ---- External link arrow ---- */
+      .arrow {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 28px;
+        height: 28px;
+        background: rgba(255, 255, 255, 0.07);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        color: var(--muted);
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .card.link:hover .arrow {
+        background: var(--accent);
+        color: #000;
+      }
 
-  /* ---- Profile card ---- */
-  .profile-card {
-    background: linear-gradient(145deg, #141414 0%, #0f0f0f 100%);
-  }
-  .profile-top {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 16px;
-  }
-  .avatar {
-    width: 60px; height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: linear-gradient(135deg, #f97316, #eab308);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 24px;
-    flex-shrink: 0;
-    /*border: 2px solid rgba(255,255,255,0.1);*/
-  }
-  .badge {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid var(--border);
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--muted);
-    letter-spacing: 0.02em;
-  }
-  .profile-name {
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 10px;
-    letter-spacing: -0.5px;
-  }
-  .profile-bio {
-    font-size: 13.5px;
-    color: #999;
-    line-height: 1.6;
-    margin-bottom: 14px;
-  }
-  .profile-meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: #555;
-    line-height: 2;
-  }
-  .profile-meta span { color: var(--accent); }
+      /* ---- Profile card ---- */
+      .profile-card {
+        background: linear-gradient(145deg, #141414 0%, #0f0f0f 100%);
+      }
+      .profile-top {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+      .avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: linear-gradient(135deg, #f97316, #eab308);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        flex-shrink: 0;
+        /*border: 2px solid rgba(255,255,255,0.1);*/
+      }
+      .badge {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--border);
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-family: "JetBrains Mono", monospace;
+        color: var(--muted);
+        letter-spacing: 0.02em;
+      }
+      .profile-name {
+        font-size: 28px;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+      }
+      .profile-bio {
+        font-size: 13.5px;
+        color: #999;
+        line-height: 1.6;
+        margin-bottom: 14px;
+      }
+      .profile-meta {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        color: #555;
+        line-height: 2;
+      }
+      .profile-meta span {
+        color: var(--accent);
+      }
 
-  /* ---- Status card ---- */
-  .status-card {
-    text-align: center;
-    padding: 22px 20px;
-  }
-  .status-dot {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .status-dot::before {
-    content: '';
-    width: 8px; height: 8px;
-    background: var(--green);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--green);
-    animation: pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
-  }
-  .clock {
-    font-size: 36px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-  .location {
-    font-size: 13px;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
-  }
+      /* ---- Status card ---- */
+      .status-card {
+        text-align: center;
+        padding: 22px 20px;
+      }
+      .status-dot {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        color: var(--green);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .status-dot::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: var(--green);
+        border-radius: 50%;
+        box-shadow: 0 0 8px var(--green);
+        animation: pulse 2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.8);
+        }
+      }
+      .clock {
+        font-size: 36px;
+        font-weight: 800;
+        letter-spacing: -1px;
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+      .location {
+        font-size: 13px;
+        color: var(--muted);
+        font-family: "JetBrains Mono", monospace;
+      }
 
-  /* ---- Social cards ---- */
-  .social-icon {
-    width: 44px; height: 44px;
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 12px;
-    font-size: 20px;
-  }
-  .social-icon.ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-  .social-icon.tt { background: #000; border: 1px solid #333; }
-  .social-icon.yt { background: #ff0000; }
-  .social-icon.mail { background: rgba(255,255,255,0.05); border: 1px solid var(--border); }
+      /* ---- Social cards ---- */
+      .social-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+        font-size: 20px;
+      }
+      .social-icon.ig {
+        background: linear-gradient(
+          135deg,
+          #f09433,
+          #e6683c,
+          #dc2743,
+          #cc2366,
+          #bc1888
+        );
+      }
+      .social-icon.tt {
+        background: #000;
+        border: 1px solid #333;
+      }
+      .social-icon.yt {
+        background: #ff0000;
+      }
+      .social-icon.mail {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+      }
 
-  .social-name {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-  .social-desc {
-    font-size: 13px;
-    color: var(--muted);
-  }
+      .social-name {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .social-desc {
+        font-size: 13px;
+        color: var(--muted);
+      }
 
-  /* ---- Follow button ---- */
-  .follow-btn {
-    display: block;
-    width: 100%;
-    margin-top: 16px;
-    padding: 12px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    text-align: center;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .follow-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); }
+      /* ---- Follow button ---- */
+      .follow-btn {
+        display: block;
+        width: 100%;
+        margin-top: 16px;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        color: var(--text);
+        font-family: "Syne", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .follow-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.15);
+      }
 
-  /* ---- Tech Stack ---- */
-  .section-title {
-    font-size: 17px;
-    font-weight: 700;
-    margin-bottom: 14px;
-    letter-spacing: -0.2px;
-  }
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .tag {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 6px 14px;
-    font-size: 13px;
-    font-family: 'JetBrains Mono', monospace;
-    color: #ccc;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
-  }
-  .tag:hover { background: rgba(232,255,0,0.08); border-color: rgba(232,255,0,0.3); color: var(--accent); }
+      /* ---- Tech Stack ---- */
+      .section-title {
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 14px;
+        letter-spacing: -0.2px;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .tag {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 6px 14px;
+        font-size: 13px;
+        font-family: "JetBrains Mono", monospace;
+        color: #ccc;
+        transition:
+          background 0.2s,
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .tag:hover {
+        background: rgba(232, 255, 0, 0.08);
+        border-color: rgba(232, 255, 0, 0.3);
+        color: var(--accent);
+      }
 
-  /* ---- Content Topics ---- */
-  .topics-label {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
-    margin-bottom: 14px;
-  }
-  .topics-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-  .topic-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13.5px;
-    color: #bbb;
-  }
-  .topic-icon {
-    width: 28px; height: 28px;
-    border-radius: 7px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px;
-    flex-shrink: 0;
-  }
+      /* ---- Content Topics ---- */
+      .topics-label {
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-family: "JetBrains Mono", monospace;
+        margin-bottom: 14px;
+      }
+      .topics-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .topic-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13.5px;
+        color: #bbb;
+      }
+      .topic-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
 
-  /* ---- Collab card ---- */
-  .collab-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-  .collab-email { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted); margin-bottom: 16px; }
-  .mail-btn {
-    width: 44px; height: 44px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .mail-btn:hover { background: rgba(255,255,255,0.1); }
+      /* ---- Collab card ---- */
+      .collab-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .collab-email {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+      .mail-btn {
+        width: 44px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .mail-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
 
-  /* ---- Prompts card ---- */
-  .prompts-desc { font-size: 13px; color: var(--muted); margin-top: 4px; }
+      /* ---- Prompts card ---- */
+      .prompts-desc {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
 
-  /* ---- YouTube card (horizontal) ---- */
-  .yt-inner {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .yt-text .social-name { margin-bottom: 4px; }
+      /* ---- YouTube card (horizontal) ---- */
+      .yt-inner {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .yt-text .social-name {
+        margin-bottom: 4px;
+      }
 
-  /* ---- Footer ---- */
-  footer {
-    text-align: center;
-    margin-top: 14px;
-    font-size: 11px;
-    color: #333;
-    font-family: 'JetBrains Mono', monospace;
-  }
+      /* ---- Footer ---- */
+      footer {
+        text-align: center;
+        margin-top: 14px;
+        font-size: 11px;
+        color: #333;
+        font-family: "JetBrains Mono", monospace;
+      }
 
-  /* ---- Entrance animations ---- */
-  .card {
-    opacity: 0;
-    transform: translateY(16px);
-    animation: fadeUp 0.5s ease forwards;
-  }
-  @keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .card:nth-child(1) { animation-delay: 0.05s; }
-  .card:nth-child(2) { animation-delay: 0.10s; }
-  .card:nth-child(3) { animation-delay: 0.15s; }
-  .card:nth-child(4) { animation-delay: 0.20s; }
-  .card:nth-child(5) { animation-delay: 0.25s; }
-  .card:nth-child(6) { animation-delay: 0.30s; }
-  .card:nth-child(7) { animation-delay: 0.35s; }
-  .card:nth-child(8) { animation-delay: 0.40s; }
-  .card:nth-child(9) { animation-delay: 0.45s; }
-  .card:nth-child(10) { animation-delay: 0.50s; }
-  /*=======================================================================*/
-/* 📱 موبايل صغير */
-@media (max-width: 480px) {
-  .container {
-    max-width: 100%;
-    padding: 0 10px;
-  }
+      /* ---- Entrance animations ---- */
+      .card {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fadeUp 0.5s ease forwards;
+      }
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .card:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .card:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .card:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .card:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .card:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .card:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+      .card:nth-child(7) {
+        animation-delay: 0.35s;
+      }
+      .card:nth-child(8) {
+        animation-delay: 0.4s;
+      }
+      .card:nth-child(9) {
+        animation-delay: 0.45s;
+      }
+      .card:nth-child(10) {
+        animation-delay: 0.5s;
+      }
+      /*=======================================================================*/
+      /* 📱 موبايل صغير */
+      @media (max-width: 480px) {
+        .container {
+          max-width: 100%;
+          padding: 0 10px;
+        }
 
-  .profile-name {
-    font-size: 22px;
-  }
+        .profile-name {
+          font-size: 22px;
+        }
 
-  .avatar {
-    width: 50px;
-    height: 50px;
-  }
+        .avatar {
+          width: 50px;
+          height: 50px;
+        }
 
-  .clock {
-    font-size: 28px;
-  }
-}
+        .clock {
+          font-size: 28px;
+        }
+      }
 
-/* 📱 تابليت */
-@media (min-width: 481px) and (max-width: 768px) {
-  .container {
-    max-width: 500px;
-  }
-}
+      /* 📱 تابليت */
+      @media (min-width: 481px) and (max-width: 768px) {
+        .container {
+          max-width: 500px;
+        }
+      }
 
-/* 💻 PC */
-@media (min-width: 769px) {
-  .container {
-  width: 100%;
-  max-width: 1100px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
+      /* 💻 PC */
+      @media (min-width: 769px) {
+        .container {
+          width: 100%;
+          max-width: 1100px;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 14px;
+        }
 
-  body {
-    padding: 40px;
-  }
-}
-  /*=========================================================================*/
-</style>
-</head>
-<body>
-<div class="container">
-
-  <!-- Profile -->
-  <div class="card profile-card">
-    <div class="profile-top">
-      <img src="Picsart_25-08-15_00-14-16-4251.jpg" class="avatar">
-      <span class="badge">Web Developer</span>
-    </div>
-    <h1 class="profile-name">Abdelhakim Boutaka</h1>
-    <p class="profile-bio">I build secure web applications and create content to demystify Linux, Servers, and Cybersecurity.</p>
-    <div class="profile-meta">
-      <div>&gt; current_mission: <span>"Educate &amp; Secure"</span></div>
-      <div>&gt; based_in: <span>"Morocco"</span></div>
-    </div>
-  </div>
-
-  <!-- Status / Clock -->
-  <div class="card status-card">
-    <div class="status-dot">Online</div>
-    <div class="clock" id="clock">--:-- --</div>
-    <div class="location">Casablanca, MA</div>
-  </div>
-
-  <!-- Instagram -->
-  <a href="https://www.instagram.com/escanor_zd?igsh=MTUydjd0OGRkeml0eA==" target="_blank" class="card link">
-    <div class="arrow">↗</div>
-    <div class="social-icon ig">📷</div>
-    <div class="social-name">Instagram</div>
-    <div class="social-desc">Daily Updates</div>
-  </a>
-
-  <!-- TikTok -->
-  <div class="card">
-    
-    <div class="arrow">↗</div>
-    <div class="social-icon tt">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.74a4.85 4.85 0 01-1.01-.05z"/></svg>
-    </div>
-    <div class="social-name">TikTok</div>
-    <div class="social-desc">Tech Tips &amp; Cyber Hacks</div>
-    <a href="https://www.tiktok.com/@abdelhakim_772?_r=1&_t=ZS-94xSXmOnbPu" target="_blank" class="follow-btn">Follow</a>
-  </div>
-
-  <!-- Tech Stack -->
-  <div class="card">
-    <div class="section-title">Tech Stack</div>
-    <div class="tags">
-      <span class="tag">JavaScript</span>
-      <span class="tag">C</span>
-      <span class="tag">Linux</span>
-      <span class="tag">Bash</span>
-      <span class="tag">Python</span>
-    </div>
-  </div>
-
-  <!-- YouTube -->
-  <a href="https://youtube.com/@abdelhakim_devo?si=lMLmJJg84h2YM5oA" target="_blank" class="card link">
-    <div class="arrow">↗</div>
-    <div class="yt-inner">
-      <div class="social-icon yt">▶</div>
-      <div class="yt-text">
-        <div class="social-name">YouTube</div>
-        <div class="social-desc">Deep dives into Web Dev &amp; Security.</div>
+        body {
+          padding: 40px;
+        }
+      }
+      /*=========================================================================*/
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Profile -->
+      <div class="card profile-card">
+        <div class="profile-top">
+          <img src="Picsart_25-08-15_00-14-16-4251.jpg" class="avatar" />
+          <span class="badge">Web Developer</span>
+        </div>
+        <h1 class="profile-name">Abdelhakim Dev</h1>
+        <p class="profile-bio">
+          I build secure web applications and create content to demystify Linux,
+          Servers, and Cybersecurity.
+        </p>
+        <div class="profile-meta">
+          <div>&gt; current_mission: <span>"Educate &amp; Secure"</span></div>
+          <div>&gt; based_in: <span>"Morocco"</span></div>
+        </div>
       </div>
+
+      <!-- Status / Clock -->
+      <div class="card status-card">
+        <div class="status-dot">Online</div>
+        <div class="clock" id="clock">--:-- --</div>
+        <div class="location">Casablanca, MA</div>
+      </div>
+
+      <!-- Instagram -->
+      <a
+        href="https://www.instagram.com/escanor_zd?igsh=MTUydjd0OGRkeml0eA=="
+        target="_blank"
+        class="card link"
+      >
+        <div class="arrow">↗</div>
+        <div class="social-icon ig">📷</div>
+        <div class="social-name">Instagram</div>
+        <div class="social-desc">Daily Updates</div>
+      </a>
+
+      <!-- TikTok -->
+      <div class="card">
+        <div class="arrow">↗</div>
+        <div class="social-icon tt">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.74a4.85 4.85 0 01-1.01-.05z"
+            />
+          </svg>
+        </div>
+        <div class="social-name">TikTok</div>
+        <div class="social-desc">Tech Tips &amp; Cyber Hacks</div>
+        <a
+          href="https://www.tiktok.com/@abdelhakim_772?_r=1&_t=ZS-94xSXmOnbPu"
+          target="_blank"
+          class="follow-btn"
+          >Follow</a
+        >
+      </div>
+
+      <!-- Tech Stack -->
+      <div class="card">
+        <div class="section-title">Tech Stack</div>
+        <div class="tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">C</span>
+          <span class="tag">Linux</span>
+          <span class="tag">Bash</span>
+          <span class="tag">Python</span>
+        </div>
+      </div>
+
+      <!-- YouTube -->
+      <a
+        href="https://youtube.com/@abdelhakim_devo?si=lMLmJJg84h2YM5oA"
+        target="_blank"
+        class="card link"
+      >
+        <div class="arrow">↗</div>
+        <div class="yt-inner">
+          <div class="social-icon yt">▶</div>
+          <div class="yt-text">
+            <div class="social-name">YouTube</div>
+            <div class="social-desc">
+              Deep dives into Web Dev &amp; Security.
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Content Topics -->
+      <div class="card">
+        <div class="topics-label">Content Topics</div>
+        <div class="topics-grid">
+          <div class="topic-item">
+            <div class="topic-icon" style="background: rgba(34, 197, 94, 0.12)">
+              🛡️
+            </div>
+            Cybersecurity
+          </div>
+          <div class="topic-item">
+            <div
+              class="topic-icon"
+              style="background: rgba(59, 130, 246, 0.12)"
+            >
+              💻
+            </div>
+            Web Dev
+          </div>
+          <div class="topic-item">
+            <div class="topic-icon" style="background: rgba(239, 68, 68, 0.12)">
+              🖥️
+            </div>
+            Server Mgmt
+          </div>
+          <div class="topic-item">
+            <div
+              class="topic-icon"
+              style="background: rgba(168, 85, 247, 0.12)"
+            >
+              🌐
+            </div>
+            Networking
+          </div>
+        </div>
+      </div>
+
+      <!-- Collab -->
+      <div class="card">
+        <div class="collab-title">Collab?</div>
+        <div class="collab-email">contact@abdelhakim</div>
+        <a href="mailto:abdelhakimboutaka@gmail.com" class="mail-btn">✉️</a>
+        <a href="https://wa.me/212774400813" target="_blank" class="mail-btn"
+          >✉️</a
+        >
+      </div>
+
+      <!-- My Prompts -->
+      <a href="#" class="card link">
+        <div class="arrow">↗</div>
+        <div class="social-name">My Prompts</div>
+        <div class="prompts-desc">
+          Quick prompts to tackle challenges and boost productivity
+        </div>
+      </a>
     </div>
-  </a>
 
-  <!-- Content Topics -->
-  <div class="card">
-    <div class="topics-label">Content Topics</div>
-    <div class="topics-grid">
-      <div class="topic-item">
-        <div class="topic-icon" style="background:rgba(34,197,94,0.12);">🛡️</div>
-        Cybersecurity
-      </div>
-      <div class="topic-item">
-        <div class="topic-icon" style="background:rgba(59,130,246,0.12);">💻</div>
-        Web Dev
-      </div>
-      <div class="topic-item">
-        <div class="topic-icon" style="background:rgba(239,68,68,0.12);">🖥️</div>
-        Server Mgmt
-      </div>
-      <div class="topic-item">
-        <div class="topic-icon" style="background:rgba(168,85,247,0.12);">🌐</div>
-        Networking
-      </div>
-    </div>
-  </div>
-
-  <!-- Collab -->
-  <div class="card">
-    <div class="collab-title">Collab?</div>
-    <div class="collab-email">contact@abdelhakim</div>
-    <a href="mailto:abdelhakimboutaka@gmail.com" class="mail-btn">✉️</a>
-    <a href="https://wa.me/212774400813" target="_blank" class="mail-btn">✉️</a>
-  </div>
-
-  <!-- My Prompts -->
-  <a href="#" class="card link">
-    <div class="arrow">↗</div>
-    <div class="social-name">My Prompts</div>
-    <div class="prompts-desc">Quick prompts to tackle challenges and boost productivity</div>
-  </a>
-
-</div>
-
-
-
-<script>
-  function updateClock() {
-    const now = new Date();
-    let h = now.getHours();
-    const m = now.getMinutes().toString().padStart(2, '0');
-    const ampm = h >= 12 ? 'PM' : 'AM';
-    h = h % 12 || 12;
-    document.getElementById('clock').textContent = `${String(h).padStart(2,'0')}:${m} ${ampm}`;
-  }
-  updateClock();
-  setInterval(updateClock, 1000);
-</script>
-</body>
+    <script>
+      function updateClock() {
+        const now = new Date();
+        let h = now.getHours();
+        const m = now.getMinutes().toString().padStart(2, "0");
+        const ampm = h >= 12 ? "PM" : "AM";
+        h = h % 12 || 12;
+        document.getElementById("clock").textContent =
+          `${String(h).padStart(2, "0")}:${m} ${ampm}`;
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
+    </script>
+  </body>
 </html>
+
